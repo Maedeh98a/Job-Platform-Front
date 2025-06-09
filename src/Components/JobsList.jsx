@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import UpdateJobPage from '../Pages/UpdateJobPage';
 
 function JobsList() {
   const [jobs, setJobs] = useState([]);
@@ -27,7 +28,7 @@ function JobsList() {
       "JavaScript", "MongoDB", "Ruby", "GraphQL", "Python", "PHP", "Swift", "TypeScript", "HTML", "CSS", 
       "Node.js"];
       let filteredObject = []
-      qualifications = JSON.parse(qualifications);
+        qualifications = JSON.parse(qualifications);
 
       qualifications.forEach((qualification)=>{
 
@@ -43,11 +44,28 @@ function JobsList() {
 
       })      
      return filteredObject;
-    
+      }
 
-}
+
+  function deleteObject(item){
   
+   console.log(item)
+      axios.delete(`http://localhost:4000/jobs/${item}`)
+    .then((res)=>{
+      console.log(res);
+      const remainItems = jobs.filter((job)=>{
+        if(job.id !== item){
+          return true
+        }
+      })
+      setJobs(remainItems)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
 
+  }
+  
   return (
     <>
     {jobs.map((job)=>{
@@ -56,9 +74,12 @@ function JobsList() {
           <article className='job-listing' key={job.id}>
             <div className='job-list-title'>
                <Link to={`/job-details/${job.id}`} >
-              <h2>{job.title}</h2>
+              <h3>{`${job.title} (${job.employment_type})`}</h3>
               </Link>
-              <h4>{job.employment_type}</h4>
+              <div>
+                <button onClick={()=> deleteObject(job.id)}>delete</button>
+                <Link to={`/update/${job.id}`}><button>edit</button></Link>
+              </div>
               </div>
             <section className='job-properties'>
               <div id='job-status'>
@@ -66,8 +87,8 @@ function JobsList() {
               <button>{job.is_remote_work? "remote" : "on-site "}</button>
             </div>
             <div id='job-qualification'>
-              {(getQualifications(job.qualifications)).map((obj)=>{
-                return(<h5>{obj}</h5>)
+              {(getQualifications(job.qualifications)).map((obj, index)=>{
+                return(<h5 key={index}>{obj}</h5>)
             
             })}
 

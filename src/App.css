@@ -2,13 +2,64 @@ body{
     margin: 0;
     padding: 0;
 }
+.navbar{
+
+
+  display: flex;
+  background-color: rgb(220, 220, 77);  
+  width: 100vw;
+  height: 10vh;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 20px;
+
+}
+.navbar-left{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    width: 30vw;
+}
+.navbar-left input{
+    border-radius: 10px;
+    margin: 10px
+}
+.navbar-right{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px;
+    width: 70vw;
+}
+
+.logo-image{
+    width: 75px;
+}
+.sidebar{
+    background-color:rgb(225, 210, 170);
+    top:0;
+    width: 15vw;
+    height: 100vh;
+    position:sticky;
+}
+footer{
+    background-color: green;
+    width: 100vw;
+    height: 10vh;
+
+}
 .job-listing{
-    background-color: aqua;
+    display: flex;
+    flex-direction: column; 
     width: 60vw;
     padding: 10px;
     border: 2px solid salmon;
-    margin: 5px;
-}
+    border-radius: 15px;
+    margin: 0px auto; 
+    
+}  
 .job-list-title{
 display: flex;
 background-color: brown;
@@ -23,7 +74,7 @@ a{
 }
 .job-properties{
 display: flex;
-background-color: purple;
+
 justify-content: space-between;
 }
 #job-status{
@@ -45,4 +96,15 @@ width: 75vw;
     margin-right: 5px ;
     
     
+}
+
+.addForm{
+display: flex;
+flex-direction: column;
+margin: 5px;
+padding: 10px;
+}
+.addForm input{
+    margin: 5px;
+
 }

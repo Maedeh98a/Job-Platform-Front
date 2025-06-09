@@ -6,18 +6,11 @@ import JobsList from '../Components/JobsList.jsx'
 function HomePage() {
   return (
     <>
- <section>
-    <Navbar/>
- </section>
-<section>
-<Sidebar/>
-</section>
+ 
   <section>
 <JobsList/>
   </section>
-  <section>
-<Footer/>
-  </section>    
+ 
     </>
    
   )
