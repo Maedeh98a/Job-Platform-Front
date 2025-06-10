@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {Route, Routes} from 'react-router-dom'
-import HomePage from '../src/Pages/HomePage.jsx'
 import './App.css'
 import NotFoundPage from './Pages/NotFoundPage.jsx'
 import AboutPage from './Pages/AboutPage.jsx'
@@ -12,18 +11,51 @@ import Navbar from './Components/Navbar.jsx'
 import Sidebar from './Components/Sidebar.jsx'
 import Footer from './Components/Footer.jsx'
 import Companies from './Pages/Companies.jsx'
+import JobsList from './Components/JobsList.jsx'
+import HomePage from './Pages/HomePage.jsx'
 
 function App() {
+  const [categories, setCategories] = useState([]);
+  useEffect(()=>{
+    async function getAllCategories() {
+      try {
+        const response = await axios.get("http://localhost:4000/jobs");
+        const jobs =  response.data;
+        let categoriesArr = []
+        categoriesArr = jobs.map((job)=>{
+            
+              return job.job_category;
+            
+            
+        })
+        
+        setCategories([...new Set(categoriesArr)])
+      
+
+      } catch (error) {
+        console.log(error)
+      }      
+    }
+
+    getAllCategories();
+
+  }, [])
   
   return (
     <>
     <main>
-       <section>
     <Navbar/>
-    </section>
-    <section className='sidebar'>
-    <Sidebar/>
-  </section>
+
+<section className='homepage-view'>
+ <div className='sidebar'>
+    <Sidebar categories={categories}/>
+    </div>
+    <div id='joblist-view'>
+    
+    
+    
+
+   
   
 
 
@@ -31,12 +63,14 @@ function App() {
       <Route path='/' element={<HomePage/>}/>
       <Route path='about' element={<AboutPage/>}/>
       <Route path='/job-details/:jobId' element={<JobDetailsPage/>}/>
-      <Route path='/add-job' element={<AddNewJobPage/>}/>
-      <Route path='/update/:jobId' element={<UpdateJobPage />}/>
+      <Route path='/add-job' element={<AddNewJobPage categories={categories}/>}/>
+      <Route path='/update/:jobId' element={<UpdateJobPage categories={categories}/>}/>
       <Route path='/companies' element={<Companies/>}/>
 
       <Route path='*' element={<NotFoundPage/>}/>
     </Routes>
+    </div>
+</section>
         <section>
     <Footer/>
   </section> 

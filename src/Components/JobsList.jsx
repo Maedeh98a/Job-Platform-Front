@@ -28,7 +28,7 @@ function JobsList() {
       "JavaScript", "MongoDB", "Ruby", "GraphQL", "Python", "PHP", "Swift", "TypeScript", "HTML", "CSS", 
       "Node.js"];
       let filteredObject = []
-        qualifications = JSON.parse(qualifications);
+        
 
       qualifications.forEach((qualification)=>{
 
@@ -76,15 +76,15 @@ function JobsList() {
                <Link to={`/job-details/${job.id}`} >
               <h3>{`${job.title} (${job.employment_type})`}</h3>
               </Link>
-              <div>
-                <button onClick={()=> deleteObject(job.id)}>delete</button>
-                <Link to={`/update/${job.id}`}><button>edit</button></Link>
+              <div className='button-style'>
+                <button id='delete-btn' onClick={()=> deleteObject(job.id)}>delete</button>
+                <Link to={`/update/${job.id}`}><button id='edit-btn'>edit</button></Link>
               </div>
               </div>
             <section className='job-properties'>
               <div id='job-status'>
               <h5>{job.location}</h5>
-              <button>{job.is_remote_work? "remote" : "on-site "}</button>
+              <button id='remote-btn'>{job.is_remote_work? "remote" : "on-site "}</button>
             </div>
             <div id='job-qualification'>
               {(getQualifications(job.qualifications)).map((obj, index)=>{

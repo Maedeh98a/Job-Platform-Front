@@ -1,10 +1,21 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import AddNewJobPage from '../Pages/AddNewJobPage';
 
-function Sidebar() {
+function Sidebar({categories}) {
+  
+
   return (
-    <div>Sidebar
+    <>
+   
+    {categories.map((oneCategory, index)=>{
+      return(
+        <h4 key={index} id='category-sidebar'>{oneCategory}</h4>
+
+      )
       
-    </div>
+    })}
+    </>
   )
 }
 

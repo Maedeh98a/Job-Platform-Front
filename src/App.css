@@ -44,25 +44,66 @@ body{
     height: 100vh;
     position:sticky;
 }
+#category-sidebar{
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 10px;
+
+}
 footer{
     background-color: green;
     width: 100vw;
     height: 10vh;
 
 }
+.homepage-view{
+    display: flex;
+}
+#joblist-view{
+ margin: 10px auto; 
+}
 .job-listing{
     display: flex;
     flex-direction: column; 
     width: 60vw;
     padding: 10px;
-    border: 2px solid salmon;
+    border: 2px solid rgb(110, 110, 11);  
     border-radius: 15px;
-    margin: 0px auto; 
+    margin-bottom: 10px;
+    
+    
     
 }  
+.button-style{
+    display: flex;
+    margin: auto 5px;
+}
+#delete-btn{
+border-radius: 10px;
+border: 1px solid rgb(138, 0, 0);
+background-color: transparent;
+color: rgb(138, 0, 0);
+width: 50px;
+margin: 0 3px;
+}
+#edit-btn{
+border-radius: 10px;
+border: 1px solid green;
+background-color: transparent;
+color: green;
+width: 50px;
+
+}
+#remote-btn{
+    background-color: rgb(220, 220, 77);  
+    border-radius: 10px;
+    border: none;
+  
+}
 .job-list-title{
 display: flex;
-background-color: brown;
+/* background-color: brown; */
 align-items:flex-end;
 justify-content: space-between;
 
@@ -78,11 +119,11 @@ display: flex;
 justify-content: space-between;
 }
 #job-status{
-background-color: yellow;
+/* background-color: yellow; */
 width: 25vw;
 }
 #job-qualification{
-background-color: orange;
+/* background-color: orange; */
 display: flex;
 justify-content: flex-end;
 
@@ -94,6 +135,7 @@ width: 75vw;
     padding: 10px;
     border-radius: 10px;
     margin-right: 5px ;
+    background-color: gainsboro;
     
     
 }
