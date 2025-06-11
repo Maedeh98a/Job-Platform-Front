@@ -25,7 +25,7 @@ function salaryCheck(salary_start, salary_end){
   salary_start = Math.floor(salary_start / 1000) * 1000;
   salary_end = Math.ceil(salary_end / 1000) * 1000;
 
-  return `Salary: ${salary_start} - ${salary_end}`
+  return `Salary range: ${salary_start} € - ${salary_end} €`
  
 }
 function jobStatus(status){
@@ -46,33 +46,46 @@ function jobStatus(status){
 }
   return (
     <>
-    <article key={oneJob.id}>
+    <article key={oneJob.id} className='job-details'>
       <section className='details-title'>
         <h3>{oneJob.title}</h3>
         <h4>{`(${oneJob.employment_type})`}</h4>
       </section>
       <section className='details-company'>
-        <h5>
-          {oneJob.company} 
-        </h5>
-       <h5>
-         {oneJob.contact}
-        </h5>
+        <h5>Company Name: {oneJob.company}</h5>
+       <h5>contact: {oneJob.contact}</h5>
         </section>
         <section className='details-description'>
-          <p>
-          {oneJob.description}
+          <h4>Description</h4>
+         <p>{oneJob.description}
         </p>
-        <p>{oneJob.is_remote_work? "this job has remote option" : "this job is just on-site "}</p>
+       <div className='qualifications'>
+        <h4 >Our Qualification: </h4>
+        <ul>
+        {oneJob?.qualifications?.map((qualification, index)=>{
+          return(
+            <li key={index}>{qualification}</li>
+          )
+        })}
+        </ul>
+       </div>
+        <button id='remote-style'>
+          <em>
+ {oneJob.is_remote_work? "This job has a remote option" : "This job is only on-site "}
+        </em>
+        </button>
         
-        <div className='jobs-status'>
-           <h5>{salaryCheck(oneJob.salary_from, oneJob.salary_to)}</h5>
-           <h5>{jobStatus(oneJob.number_of_opening) }</h5>
+        <div className='job-status'>
+           <h4>{salaryCheck(oneJob.salary_from, oneJob.salary_to)}</h4>
+           <h4>{jobStatus(oneJob.number_of_opening) }</h4>
         </div>
-        <button>apply</button>
-
-
+        <div className='job-timing'>
+           <h5>This position created at {oneJob.created_at}</h5>
+           <h5>Application deadline at {oneJob.application_deadline}</h5>
+        </div>
         </section>
+        <button id='apply-btn'>
+          Apply for this opportunity</button>
      </article>
     
     </>

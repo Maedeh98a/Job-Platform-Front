@@ -57,8 +57,10 @@ function AddNewJobPage({categories}) {
 
     }
   return (
-    <form onSubmit={addNewJob} className='addForm'>
-        <label >title
+    
+    <div className='form-div'>
+        <form onSubmit={addNewJob} className='addForm' >
+        <label>title
              <input name = "title" type='text' placeholder='title of the position' onChange={handleNewJob}/>    
         </label>
         <label>description
@@ -115,6 +117,7 @@ function AddNewJobPage({categories}) {
         
         <button> add new item </button>
     </form>
+  </div>
   )
 }
 

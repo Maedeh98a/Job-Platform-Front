@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { previousDay } from 'date-fns';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate} from 'react-router-dom'
 
 function UpdateJobPage({categories}) {
+const nav = useNavigate();
 const {jobId} = useParams();
-const [qualifications, setQualifications] = useState([]);
 const [currentJob, setCurrentJob] = useState({
    
         title: "",
@@ -30,49 +31,56 @@ useEffect(()=>{
     axios.get(`http://localhost:4000/jobs/${jobId}`)
     .then((res)=>{
         setCurrentJob(res.data)
-        setQualifications(res.data.qualifications)
-
-    })
+     })
     .catch((err)=>{
         console.log(err);
     })
 }, [jobId])
 
 
- function handleUpdateQualification (){
-        setNewJob(prev =>({
-            ...prev,qualifications:[...prev.qualifications, qualifications]
-        }));
-        
-    }
-    const handleQualificationChange = (index, value) => {
-        const updated = [...qualifications];
+
+function handleQualificationChange (index, value) {
+        let updated = [...currentJob.qualifications];
         updated[index] = value;
-        setQualifications(updated);
         setCurrentJob(prev => ({ ...prev, qualifications: updated }));
         };
-function updateJob(event){
-        const name = event.target.name;
-        const value = event.target.value;
-        setCurrentJob(values => ({...values, [name]:value}))
-        console.log(currentJob);
+function addQualification(){
+    setCurrentJob(prev =>({...prev, qualifications:[...prev.qualifications, ""]}));
+}
+ 
+function removeQualification(index){
+    const updated = [...currentJob.qualifications];
+    updated.splice(index, 1);
+    setCurrentJob(prev => ({...prev, qualifications:updated}))
 
-    }
+}
+function updateJob(event) {
+  const { name, value, type, checked } = event.target;
+  const newValue = type === 'checkbox' ? checked : value;
 
-function updateJob(event){
+  setCurrentJob(prev => ({
+    ...prev,
+    [name]: newValue
+  }));
+}
+
+function updateJobSubmit(event){
         event.preventDefault();
 
         axios.put(`http://localhost:4000/jobs/${jobId}`, currentJob)
         .then((res)=> {
-            console.log(res);
+             console.log(res);
+             nav("/");
+            
         })
         .catch((err)=>{
             console.log(err)
         });
+   
 
     }
   return (
-    <form onSubmit={updateJob} className='addForm'>
+    <form onSubmit={updateJobSubmit} className='addForm'>
         <label>title
             <input name = "title" type='text' value={currentJob.title} onChange={updateJob}/>   
         </label>
@@ -82,19 +90,16 @@ function updateJob(event){
         <label>company
             <input name = "company" type='text' value={currentJob.company} onChange={updateJob}/>        
         </label>
-        <label>change requirements
-            {/* <input name='qualifications' type='text' value={qualificationInput} onChange={(e)=> setQualificationInput(e.target.value)}/>
-            <button type='button' onClick={handleUpdateQualification}>Add Qualification</button> */}
-            {/* <ul>
-                {qualifications.map((qualification, i)=>{
-                    return(
-                        <input key={i} name={`qualifications${i}`} type='text' value={qualification} onChange={(e)=> handleQualificationChange(i, e.target.value)}/>
-                        
-                    )
-                })}
-            </ul>
-             <button type='button' onClick={handleUpdateQualification}>Add Qualification</button> */}
-        </label>
+        {currentJob.qualifications.map((q, index)=>{
+            return(
+                <div key={index}>
+                    <input type='text' value={q} onChange={(e) => handleQualificationChange(index, e.target.value)}/>
+                    <button type='button' onClick={removeQualification}>remove</button>
+                </div>
+            )
+        })}
+         <button type='button' onClick={addQualification}>Add Qualification</button>
+        
         <label> location
              <input name = "location" type='text' value={currentJob.location} onChange={updateJob} /> 
         </label>

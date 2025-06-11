@@ -24,26 +24,30 @@ function JobsList() {
 
   function getQualifications(qualifications)
   {
-    const qualificationObject = ["C++", "Angular", "Docker","Vue.js","React", "SQL", "Git", "Java", "Kotlin", "AWS",
-      "JavaScript", "MongoDB", "Ruby", "GraphQL", "Python", "PHP", "Swift", "TypeScript", "HTML", "CSS", 
+    const qualificationObject = ["JavaScript","C++", "Angular", "Docker","Vue.js","React", "SQL", "Git", "Java", "Kotlin", "AWS",
+       "MongoDB", "Ruby", "GraphQL", "Python", "PHP", "Swift", "TypeScript", "HTML", "CSS", 
       "Node.js"];
       let filteredObject = []
         
 
-      qualifications.forEach((qualification)=>{
-
-         const newObject = qualificationObject.filter((object)=>{
+      for(const qualification of qualifications){
+        for(const object of qualificationObject){
           if(qualification.includes(object)){
-            return true;
-         }
-         else{
-          return false
-         }
-          })
-          filteredObject.push(newObject)
+            filteredObject.push(object);
+            break;
+          }
+        }
+      }
+ return filteredObject;
 
-      })      
-     return filteredObject;
+ // we can use break just in for, while and switch and here I got problem because of Java and JavaScript
+      //    const newObject = qualificationObject.filter((object)=>{
+      //     if(qualification.includes(object)){
+      //       return true;
+            
+      //     }else{
+      //       return false;
+      //     }
       }
 
 
