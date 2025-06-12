@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 function JobDetailsPage() {
  const {jobId} = useParams() 
@@ -8,7 +9,7 @@ function JobDetailsPage() {
  
 
  useEffect(()=>{
-  fetch(`http://localhost:4000/jobs/${jobId}`)
+  fetch(`${API_URL}/jobs/${jobId}`)
   .then((jsonResponse)=>{
     return jsonResponse.json();
   })

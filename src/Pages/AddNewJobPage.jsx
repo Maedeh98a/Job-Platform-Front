@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import {v4 as uuidv4} from 'uuid';
 import {format , parseISO} from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 function AddNewJobPage({categories}) {
 
@@ -46,7 +47,7 @@ function AddNewJobPage({categories}) {
     function addNewJob(event){
         event.preventDefault();
 
-        axios.post("http://localhost:4000/jobs", newJob)
+        axios.post(`${API_URL}/jobs`, newJob)
         .then((res)=> {
             nav('/');
             console.log(res);

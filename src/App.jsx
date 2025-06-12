@@ -14,12 +14,14 @@ import Companies from './Pages/Companies.jsx'
 import JobsList from './Components/JobsList.jsx'
 import HomePage from './Pages/HomePage.jsx'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
 function App() {
   const [categories, setCategories] = useState([]);
   useEffect(()=>{
     async function getAllCategories() {
       try {
-        const response = await axios.get("http://localhost:4000/jobs");
+        const response = await axios.get(`${API_URL}/jobs`);
         const jobs =  response.data;
         let categoriesArr = []
         categoriesArr = jobs.map((job)=>{

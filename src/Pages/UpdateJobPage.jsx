@@ -2,6 +2,7 @@ import axios from 'axios';
 import { previousDay } from 'date-fns';
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate} from 'react-router-dom'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 function UpdateJobPage({categories}) {
 const nav = useNavigate();
@@ -28,7 +29,7 @@ const [currentJob, setCurrentJob] = useState({
 
 useEffect(()=>{
     
-    axios.get(`http://localhost:4000/jobs/${jobId}`)
+    axios.get(`${API_URL}/jobs/${jobId}`)
     .then((res)=>{
         setCurrentJob(res.data)
      })
@@ -67,7 +68,7 @@ function updateJob(event) {
 function updateJobSubmit(event){
         event.preventDefault();
 
-        axios.put(`http://localhost:4000/jobs/${jobId}`, currentJob)
+        axios.put(`${API_URL}/jobs/${jobId}`, currentJob)
         .then((res)=> {
              console.log(res);
              nav("/");

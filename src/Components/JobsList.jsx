@@ -3,14 +3,14 @@ import { useState, useEffect} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import UpdateJobPage from '../Pages/UpdateJobPage';
-
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 function JobsList() {
   const [jobs, setJobs] = useState([]);
 
   useEffect(()=>{
     async function getAllJobs() {
       try {
-        const allJobs = await axios.get("http://localhost:4000/jobs");
+        const allJobs = await axios.get(`${API_URL}/jobs`);
         setJobs(allJobs.data);
       
       } catch (error) {
@@ -54,7 +54,7 @@ function JobsList() {
   function deleteObject(item){
   
    console.log(item)
-      axios.delete(`http://localhost:4000/jobs/${item}`)
+      axios.delete(`${API_URL}/jobs/${item}`)
     .then((res)=>{
       console.log(res);
       const remainItems = jobs.filter((job)=>{
