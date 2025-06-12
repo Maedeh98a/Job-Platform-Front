@@ -6,8 +6,7 @@ body{
 
 
   display: flex;
-  background-color: rgb(220, 220, 77);  
-  width: 100vw;
+  background-color: rgb(200, 206, 191);
   height: 10vh;
   align-items: center;
   justify-content: space-between;
@@ -38,7 +37,7 @@ body{
     width: 75px;
 }
 .sidebar{
-    background-color:rgb(225, 210, 170);
+    background-color:rgb(182, 187, 173);
     top:0;
     width: 15vw;
     height: 100vh;
@@ -52,9 +51,20 @@ body{
 
 }
 footer{
-    background-color: green;
+    background-color: rgb(200, 206, 191);
     width: 100vw;
     height: 10vh;
+
+}
+#footer-style{
+    display: flex;
+    justify-content: space-around;
+    padding: 3px auto;
+}
+footer img{
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
 
 }
 .homepage-view{
