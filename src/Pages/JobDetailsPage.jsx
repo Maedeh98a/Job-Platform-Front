@@ -70,11 +70,13 @@ function jobStatus(status){
         })}
         </ul>
        </div>
-        <button id='remote-style'>
-          <em>
- {oneJob.is_remote_work? "This job has a remote option" : "This job is only on-site "}
+        
+          <h4>
+            <em>
+ {oneJob.is_remote_work? "This job has a remote option!" : "This job is only on-site! "}
         </em>
-        </button>
+            </h4>
+
         
         <div className='job-status'>
            <h4>{salaryCheck(oneJob.salary_from, oneJob.salary_to)}</h4>

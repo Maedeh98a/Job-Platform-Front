@@ -1,9 +1,9 @@
 import React from 'react'
 import JobsList from '../Components/JobsList'
 
-function HomePage() {
+function HomePage({jobs, setJobs}) {
   return (
-    <div> <JobsList/></div>
+    <div> <JobsList jobs={jobs} setJobs={setJobs}/></div>
    
   )
 }

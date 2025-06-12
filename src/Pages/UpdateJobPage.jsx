@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate} from 'react-router-dom'
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
-function UpdateJobPage({categories}) {
+function UpdateJobPage({categories, refreshJobs}) {
 const nav = useNavigate();
 const {jobId} = useParams();
 const [currentJob, setCurrentJob] = useState({
@@ -71,6 +71,7 @@ function updateJobSubmit(event){
         axios.put(`${API_URL}/jobs/${jobId}`, currentJob)
         .then((res)=> {
              console.log(res);
+             refreshJobs();
              nav("/");
             
         })
@@ -82,26 +83,16 @@ function updateJobSubmit(event){
     }
   return (
     <form onSubmit={updateJobSubmit} className='addForm'>
+         <section className='form-div'>
+                <div className='form-style'>
         <label>title
             <input name = "title" type='text' value={currentJob.title} onChange={updateJob}/>   
         </label>
-        <label>description
-            <textarea name = "description" type='text' value={currentJob.description} onChange={updateJob}/> 
-        </label>  
+         
         <label>company
             <input name = "company" type='text' value={currentJob.company} onChange={updateJob}/>        
         </label>
-        {currentJob.qualifications.map((q, index)=>{
-            return(
-                <div key={index}>
-                    <input type='text' value={q} onChange={(e) => handleQualificationChange(index, e.target.value)}/>
-                    <button type='button' onClick={removeQualification}>remove</button>
-                </div>
-            )
-        })}
-         <button type='button' onClick={addQualification}>Add Qualification</button>
-        
-        <label> location
+         <label> location
              <input name = "location" type='text' value={currentJob.location} onChange={updateJob} /> 
         </label>
 
@@ -112,12 +103,6 @@ function updateJobSubmit(event){
         <label>maximum salary
         <input name = "salary_to" type='number' value={currentJob.salary_to} onChange={updateJob}/> 
         </label>
-        <label> data of update
-            <input name="updated_at" type='date' onChange={updateJob}/>
-        </label>
-         <label> data of deadline
-            <input name="application_deadline" type='date' onChange={updateJob}/>
-        </label>
         <label >type of employment 
              <input name = "employment_type" type='text' value={currentJob.employment_type} onChange={updateJob}/>
         </label>
@@ -125,8 +110,21 @@ function updateJobSubmit(event){
         <label>contact
             <input name = "contact" type='text' value={currentJob.contact} onChange={updateJob}/>        
         </label>
+         <label>description
+            <textarea name = "description" type='text' value={currentJob.description} onChange={updateJob}/> 
+        </label> 
+        </div>
+        <div className='form-style'>
+           
+        <label> data of update
+            <input name="updated_at" type='date' onChange={updateJob}/>
+        </label>
+         <label> data of deadline
+            <input name="application_deadline" type='date' onChange={updateJob}/>
+        </label>
+        
         <label >category
-        <select name = "job_category" type='text' placeholder='job_category' onChange={updateJob}> 
+        <select name = "job_category" type='text' value={currentJob.job_category} onChange={updateJob}> 
             {categories.map((category, index)=>{
                 return(
                      <option key={index} value={category}>{category}</option>
@@ -135,15 +133,34 @@ function updateJobSubmit(event){
            
         </select>
         </label>
-            
+            {currentJob.qualifications.map((q, index)=>{
+            return(
+                <div key={index}>
+                    <input type='text' value={q} onChange={(e) => handleQualificationChange(index, e.target.value)}/>
+                    <button id="remove-btn" type='button' onClick={()=>removeQualification(index)}>remove</button>
+                </div>
+            )
+        })}
+         <button id="qualification-btn" type='button' onClick={addQualification}>Add Qualification</button>
         <label>Is this position remote?
-             <input name = "is_remote_work" type='checkbox' onChange={updateJob} />  
+            <input
+  name="is_remote_work"
+  type="checkbox"
+  checked={!!currentJob.is_remote_work}
+  onChange={updateJob}
+/>
+
              </label>      
                  
              
        {/* how to input the date in  react */}
         
-        <button> Save changes </button>
+        <button id='submit-btn'> Save changes </button>
+
+        </div>
+        
+
+        </section>
     </form>
   )
 }

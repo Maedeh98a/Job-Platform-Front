@@ -17,12 +17,14 @@ import HomePage from './Pages/HomePage.jsx'
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 function App() {
+  const [jobs, setJobs] = useState([]);
   const [categories, setCategories] = useState([]);
   useEffect(()=>{
     async function getAllCategories() {
       try {
         const response = await axios.get(`${API_URL}/jobs`);
         const jobs =  response.data;
+        setJobs(jobs);
         let categoriesArr = []
         categoriesArr = jobs.map((job)=>{
             
@@ -43,6 +45,15 @@ function App() {
 
   }, [])
   
+  function refreshJobs(){
+    axios.get(`${API_URL}/jobs`)
+    .then((res)=>{
+      setJobs(res.data);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  }
   return (
     <>
     <main>
@@ -62,11 +73,11 @@ function App() {
 
 
     <Routes>
-      <Route path='/' element={<HomePage/>}/>
+      <Route path='/' element={<HomePage jobs={jobs} setJobs={setJobs}/>}/>
       <Route path='about' element={<AboutPage/>}/>
       <Route path='/job-details/:jobId' element={<JobDetailsPage/>}/>
-      <Route path='/add-job' element={<AddNewJobPage categories={categories}/>}/>
-      <Route path='/update/:jobId' element={<UpdateJobPage categories={categories}/>}/>
+      <Route path='/add-job' element={<AddNewJobPage categories={categories} jobs={jobs} setJobs={setJobs}/>}/>
+      <Route path='/update/:jobId' element={<UpdateJobPage categories={categories} jobs={jobs} setJobs={setJobs} refreshJobs={refreshJobs}/>}/>
       <Route path='/companies' element={<Companies/>}/>
 
       <Route path='*' element={<NotFoundPage/>}/>

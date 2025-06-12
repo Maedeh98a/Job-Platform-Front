@@ -4,23 +4,23 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import UpdateJobPage from '../Pages/UpdateJobPage';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
-function JobsList() {
-  const [jobs, setJobs] = useState([]);
+function JobsList({jobs, setJobs}) {
+  
 
-  useEffect(()=>{
-    async function getAllJobs() {
-      try {
-        const allJobs = await axios.get(`${API_URL}/jobs`);
-        setJobs(allJobs.data);
+  // useEffect(()=>{
+  //   async function getAllJobs() {
+  //     try {
+  //       const allJobs = await axios.get(`${API_URL}/jobs`);
+  //       setJobs(allJobs.data);
       
-      } catch (error) {
-        console.log(error);
-      }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
       
-    }
+  //   }
 
-    getAllJobs();
-  },[]);
+  //   getAllJobs();
+  // },[]);
 
   function getQualifications(qualifications)
   {
@@ -88,7 +88,7 @@ function JobsList() {
             <section className='job-properties'>
               <div id='job-status'>
               <h5>{job.location}</h5>
-              <button id='remote-btn'>{job.is_remote_work? "remote" : "on-site "}</button>
+              <button id='remote-btn'>{job.is_remote_work? "Remote" : "On-site "}</button>
             </div>
             <div id='job-qualification'>
               {(getQualifications(job.qualifications)).map((obj, index)=>{
