@@ -1,6 +1,7 @@
 import React from 'react'
 import AddNewJobPage from '../Pages/AddNewJobPage'
 import { Link } from 'react-router-dom'
+import logo from "../assets/job-finder.png"
 
 
 function Navbar() {
@@ -8,7 +9,7 @@ function Navbar() {
     <>
       <nav className='navbar'>
         <div className='navbar-left'>
-           <Link to="/"><img src="../src/assets/job-finder.png" alt='logo' className='logo-image'/></Link>
+           <Link to="/"><img src={logo} alt='logo' className='logo-image'/></Link>
             <label> Search 
              <input type='search'/>
             </label>

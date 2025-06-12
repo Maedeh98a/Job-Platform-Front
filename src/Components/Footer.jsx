@@ -1,16 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import {github} from "../src/assets/github.png"
-// import {linkedin} from "../src/assets/linkedin.png"
+import github from "../assets/github.png"
+import linkedin from "../assets/linkedin.png"
 function Footer() {
   return (
     <footer>
       <div id='footer-style'>
         <Link to="https://www.linkedin.com/in/maedeh-ahmadian">
-      <img src="../src/assets/linkedin.png" alt="linkedin"/>
+      <img src={linkedin} alt="linkedin"/>
       </Link>
       <Link to="https://github.com/Maedeh98a">
-      <img src="../src/assets/github.png" alt="linkedin"/>
+      <img src={github} alt="github"/>
       </Link>
 
       </div>
